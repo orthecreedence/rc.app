@@ -92,20 +92,20 @@ function spawn () {
 }
 
 case "$1" in
-    start)
+	start)
 		if [ "$(is_running)" == "yes" ]; then
 			echo "${NAME} already running (pid $( cat ${PID} ))"
 			exit 1
 		fi
 		$1
-        ;;
-    stop)
+		;;
+	stop)
 		if [ "$(is_running)" == "no" ]; then
 			echo "${NAME} not running"
 			exit 1
 		fi
 		$1
-        ;;
+		;;
 	status)
 		if [ "$(is_running)" == "yes" ]; then
 			echo "${NAME} is running (pid $( cat ${PID} ))"
@@ -114,10 +114,10 @@ case "$1" in
 		fi
 		;;
 	restart)
-        $1
-        ;;
-    *)
-        echo "Usage: $0 {start|stop|restart|status}"
-        exit 2
+		$1
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart|status}"
+		exit 2
 esac
 
