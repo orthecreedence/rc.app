@@ -36,12 +36,19 @@ function stop () {
 }
 
 function allchildren () {
-	start=$1
-	pids="${start}"
-	next="$( pgrep -P ${start} )"
-	while [ "${next}" != "" ]; do
-		pids="${pids} ${next}"
-		next="$( pgrep -P ${next} )"
+	checklist=$1
+	pids="${checklist}"
+	while [ "${checklist}" != "" ]; do
+		# grab top pid from checklist
+		entry=$(echo -n $checklist | tr ' ' '\n' | head -1)
+		children=$( pgrep -P ${entry} )
+		# remove top pid from checklist
+		checklist="$( echo -n $checklist | tr ' ' '\n' | tail -n+2 | tr '\n' ' ' )"
+		# add chilren to checklist
+		checklist="${checklist} ${children}"
+		# trim whitespace
+		checklist="$( echo -n $checklist | sed 's|^\s\+||' | sed 's|\s\+$||' )"
+		pids="${pids} ${children}"
 	done
 	echo "${pids}" | tr ' ' '\n'
 }
