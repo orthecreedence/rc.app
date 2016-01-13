@@ -95,6 +95,7 @@ function spawn () {
 	echo "Starting ${NAME}: ${apprun}"
 	sudo -u ${USER} sh -c "${apprun}" 1>> ${LOG} 2>&1 &
 	app_pid=$!
+	mkdir -p $(dirname ${PID})
 	echo "${app_pid}" > ${PID}
 }
 
