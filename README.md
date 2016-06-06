@@ -19,7 +19,10 @@ needs:
 - `NAME`  
 The name of your app
 - `PID`  
-Path you want the PID file to be written.
+Path the PID file will be written to
+- `CREATE_PID`
+Set to `0` if the app you're running creates its own PID, set to `1` if you want
+`rc.app` to create the pidfile for you
 - `USER`  
 The user you want to run the app as
 - `EXE`  

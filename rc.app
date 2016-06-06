@@ -9,6 +9,7 @@
 # ------------------------------------------------------------------------------
 NAME=my-app
 PID=/var/run/${NAME}.pid
+CREATE_PID=1
 USER=app
 EXE=/path/to/node
 APP=/path/to/app.js
@@ -96,7 +97,9 @@ function spawn () {
 	sudo -u ${USER} sh -c "${apprun}" 1>> ${LOG} 2>&1 &
 	app_pid=$!
 	mkdir -p $(dirname ${PID})
-	echo "${app_pid}" > ${PID}
+	if [ "${CREATE_PID}" == "1" ]; then
+		echo "${app_pid}" > ${PID}
+	fi
 }
 
 case "$1" in
